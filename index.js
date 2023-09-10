@@ -56,14 +56,14 @@ const material = new THREE.MeshBasicMaterial({ color: "#4272D3" });
 const cube = new THREE.Mesh(geometry, shaderMaterial);
 scene.add(cube, helper);
 
-console.log(cube);
 
-camera.position.set(2, 2, 2);
+camera.position.set(3, 3, 3);
 
 const clock = new THREE.Clock();
 function animate() {
   const elapsedTime = clock.getElapsedTime();
   shaderMaterial.uniforms.uTime.value = elapsedTime;
+  cube.rotation.y += 0.05;
   requestAnimationFrame(animate);
   control.update();
   renderer.render(scene, camera);
