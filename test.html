@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Document</title>
+  <style>
+    html,body{
+        width: 100%;
+        height: 100%;
+    }
+    *{
+        margin: 0;
+        padding: 0;
+    }
+  </style>
+</head>
+<body>
+<script src='https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.js'></script>
+<link href='https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.css' rel='stylesheet'/>
+<div id='map' style='width: 100vw; height: 100vh;'></div>
+<script>
+  mapboxgl.accessToken = 'pk.eyJ1IjoiY2Fpbmlhb2ZlaWZlaSIsImEiOiJjbGozcDc2dWYxaHEzM2xvZHhsY2M5N2NkIn0.t5FlOJr9bTyl2fuNwSTsXw';
+  const map = new mapboxgl.Map({
+    container: 'map', // container ID
+    style: 'mapbox://styles/mapbox/streets-v12', // style URL
+    zoom: 15,
+    center: [114.36762760328,30.574071648609],
+  });
+
+  map.on("load", function () {
+    // 绘制标识图层
+    drawSymbolLayer();
+  });
+
+  function drawSymbolLayer() {
+    map.loadImage(
+      "https://map.sgcc.com.cn/products/js-sdk/v3/assets/images/markers_new2_4ab0bc5_78.png",
+      function (error, image) {
+        map.addImage("poi", image);
+      }
+    );
+
+    map.addLayer({
+      id: "choicePoi",
+      type: "symbol",
+      source: {
+        type: "geojson",
+        data: {
+          type: "FeatureCollection",
+          features: [
+            {
+              type: "Feature",
+              geometry: {
+                type: "Point",
+                coordinates: [114.36762760328,30.574071648609],
+              },
+              properties: {
+                name: "标识图层",
+                mode:['vertical']
+              },
+            },
+          ],
+        },
+      },
+      layout: {
+        "text-ignore-placement": false,
+        "text-field": "{name}",
+        "text-size": 12,
+        "text-writing-mode":["get","mode"],
+        "text-anchor": "top",
+        "text-allow-overlap": false,
+        "icon-anchor": "bottom",
+        "text-offset": [0, 0],
+        "text-max-width": 8,
+        "text-font": ["Microsoft YaHei Regular"],
+      },
+      paint: {
+        "text-color": "#ff0000",
+        "text-halo-color": "#FFFFFF",
+        "text-halo-width": 1.33333,
+      },
+    });
+  }
+
+</script>
+</body>
+</html>
