@@ -63,7 +63,7 @@ const clock = new THREE.Clock();
 function animate() {
   const elapsedTime = clock.getElapsedTime();
   shaderMaterial.uniforms.uTime.value = elapsedTime;
-  cube.rotation.y += 0.05;
+  cube.rotation.y += 0.01;
   requestAnimationFrame(animate);
   control.update();
   renderer.render(scene, camera);
